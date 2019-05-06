@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="227e502feea9455d8b17cfba67028dff" Name="Diagram1">
+        <EntityTypeShape EntityType="user42Model.Fabric" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.FabricStock" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.Furniture" Width="1.5" PointX="3.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.FurnitureStock" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.Product" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.Role" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.ScrapRule" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.Unit" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.User" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.ProductionFabric" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="user42Model.FK_ScrapRule_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_Stock_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_FabricStock_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_FabricStock_Unit1" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_FurnitureStock_Furniture" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_FurnitureStock_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_FurnitureStock_Unit1" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_Product_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_Product_Unit1" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_User_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

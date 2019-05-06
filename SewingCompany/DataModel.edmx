@@ -1,0 +1,743 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="user42Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Fabric">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="PurchasePrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+          <Property Name="Pattern" Type="varchar" MaxLength="50" />
+          <Property Name="Composition" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FabricStock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdFabric" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Width" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Height" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="IdUnitWidth" Type="int" />
+          <Property Name="IdUnitHeight" Type="int" />
+        </EntityType>
+        <EntityType Name="Furniture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" />
+          <Property Name="Type" Type="varchar" MaxLength="100" />
+          <Property Name="PurchasePrice" Type="float" />
+        </EntityType>
+        <EntityType Name="FurnitureStock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdFurniture" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Width" Type="float" />
+          <Property Name="IdUnitWidth" Type="int" />
+          <Property Name="Height" Type="float" />
+          <Property Name="IdUnitHeight" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="1200" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Width" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Height" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="IdUnitWidth" Type="int" />
+          <Property Name="IdUnitHeight" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductionFabric">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="IdProduction" />
+            <PropertyRef Name="IdFabric" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="IdProduction" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdFabric" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScrapRule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMaterial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdUnit" Type="int" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FabricStock_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="FabricStock" Type="Self.FabricStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FabricStock">
+              <PropertyRef Name="IdUnitHeight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FabricStock_Unit1">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="FabricStock" Type="Self.FabricStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FabricStock">
+              <PropertyRef Name="IdUnitWidth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurnitureStock_Furniture">
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="1" />
+          <End Role="FurnitureStock" Type="Self.FurnitureStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Furniture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FurnitureStock">
+              <PropertyRef Name="IdFurniture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurnitureStock_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="FurnitureStock" Type="Self.FurnitureStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FurnitureStock">
+              <PropertyRef Name="IdUnitHeight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurnitureStock_Unit1">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="FurnitureStock" Type="Self.FurnitureStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FurnitureStock">
+              <PropertyRef Name="IdUnitWidth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdUnitWidth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Unit1">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdUnitHeight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapRule_Material">
+          <End Role="Fabric" Type="Self.Fabric" Multiplicity="1" />
+          <End Role="ScrapRule" Type="Self.ScrapRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fabric">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScrapRule">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_Material">
+          <End Role="Fabric" Type="Self.Fabric" Multiplicity="1" />
+          <End Role="FabricStock" Type="Self.FabricStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fabric">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FabricStock">
+              <PropertyRef Name="IdFabric" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="user42ModelStoreContainer">
+          <EntitySet Name="Fabric" EntityType="Self.Fabric" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FabricStock" EntityType="Self.FabricStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Furniture" EntityType="Self.Furniture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FurnitureStock" EntityType="Self.FurnitureStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScrapRule" EntityType="Self.ScrapRule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductionFabric" EntityType="Self.ProductionFabric" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductionFabric].[Id] AS [Id], 
+    [ProductionFabric].[IdProduction] AS [IdProduction], 
+    [ProductionFabric].[IdFabric] AS [IdFabric]
+    FROM [dbo].[ProductionFabric] AS [ProductionFabric]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_FabricStock_Unit" Association="Self.FK_FabricStock_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="FabricStock" EntitySet="FabricStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FabricStock_Unit1" Association="Self.FK_FabricStock_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="FabricStock" EntitySet="FabricStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurnitureStock_Furniture" Association="Self.FK_FurnitureStock_Furniture">
+            <End Role="Furniture" EntitySet="Furniture" />
+            <End Role="FurnitureStock" EntitySet="FurnitureStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurnitureStock_Unit" Association="Self.FK_FurnitureStock_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="FurnitureStock" EntitySet="FurnitureStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurnitureStock_Unit1" Association="Self.FK_FurnitureStock_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="FurnitureStock" EntitySet="FurnitureStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Unit" Association="Self.FK_Product_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Unit1" Association="Self.FK_Product_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapRule_Material" Association="Self.FK_ScrapRule_Material">
+            <End Role="Fabric" EntitySet="Fabric" />
+            <End Role="ScrapRule" EntitySet="ScrapRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_Material" Association="Self.FK_Stock_Material">
+            <End Role="Fabric" EntitySet="Fabric" />
+            <End Role="FabricStock" EntitySet="FabricStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="user42Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Fabric">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PurchasePrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pattern" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Composition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ScrapRule" Relationship="Self.FK_ScrapRule_Material" FromRole="Fabric" ToRole="ScrapRule" />
+          <NavigationProperty Name="FabricStock" Relationship="Self.FK_Stock_Material" FromRole="Fabric" ToRole="FabricStock" />
+        </EntityType>
+        <EntityType Name="FabricStock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdFabric" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Width" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Height" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IdUnitWidth" Type="Int32" />
+          <Property Name="IdUnitHeight" Type="Int32" />
+          <NavigationProperty Name="Fabric" Relationship="Self.FK_Stock_Material" FromRole="FabricStock" ToRole="Fabric" />
+          <NavigationProperty Name="Unit" Relationship="Self.FK_FabricStock_Unit" FromRole="FabricStock" ToRole="Unit" />
+          <NavigationProperty Name="Unit1" Relationship="Self.FK_FabricStock_Unit1" FromRole="FabricStock" ToRole="Unit" />
+        </EntityType>
+        <EntityType Name="Furniture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PurchasePrice" Type="Double" />
+          <NavigationProperty Name="FurnitureStock" Relationship="Self.FK_FurnitureStock_Furniture" FromRole="Furniture" ToRole="FurnitureStock" />
+        </EntityType>
+        <EntityType Name="FurnitureStock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdFurniture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Width" Type="Double" />
+          <Property Name="IdUnitWidth" Type="Int32" />
+          <Property Name="Height" Type="Double" />
+          <Property Name="IdUnitHeight" Type="Int32" />
+          <NavigationProperty Name="Furniture" Relationship="Self.FK_FurnitureStock_Furniture" FromRole="FurnitureStock" ToRole="Furniture" />
+          <NavigationProperty Name="Unit" Relationship="Self.FK_FurnitureStock_Unit" FromRole="FurnitureStock" ToRole="Unit" />
+          <NavigationProperty Name="Unit1" Relationship="Self.FK_FurnitureStock_Unit1" FromRole="FurnitureStock" ToRole="Unit" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1200" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Width" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Height" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IdUnitWidth" Type="Int32" />
+          <Property Name="IdUnitHeight" Type="Int32" />
+          <NavigationProperty Name="Unit" Relationship="Self.FK_Product_Unit" FromRole="Product" ToRole="Unit" />
+          <NavigationProperty Name="Unit1" Relationship="Self.FK_Product_Unit1" FromRole="Product" ToRole="Unit" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ScrapRule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMaterial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdUnit" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fabric" Relationship="Self.FK_ScrapRule_Material" FromRole="ScrapRule" ToRole="Fabric" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FabricStock" Relationship="Self.FK_FabricStock_Unit" FromRole="Unit" ToRole="FabricStock" />
+          <NavigationProperty Name="FabricStock1" Relationship="Self.FK_FabricStock_Unit1" FromRole="Unit" ToRole="FabricStock" />
+          <NavigationProperty Name="FurnitureStock" Relationship="Self.FK_FurnitureStock_Unit" FromRole="Unit" ToRole="FurnitureStock" />
+          <NavigationProperty Name="FurnitureStock1" Relationship="Self.FK_FurnitureStock_Unit1" FromRole="Unit" ToRole="FurnitureStock" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Unit" FromRole="Unit" ToRole="Product" />
+          <NavigationProperty Name="Product1" Relationship="Self.FK_Product_Unit1" FromRole="Unit" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="ProductionFabric">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="IdProduction" />
+            <PropertyRef Name="IdFabric" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdProduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdFabric" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ScrapRule_Material">
+          <End Role="Fabric" Type="Self.Fabric" Multiplicity="1" />
+          <End Role="ScrapRule" Type="Self.ScrapRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fabric">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScrapRule">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_Material">
+          <End Role="Fabric" Type="Self.Fabric" Multiplicity="1" />
+          <End Role="FabricStock" Type="Self.FabricStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fabric">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FabricStock">
+              <PropertyRef Name="IdFabric" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FabricStock_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="FabricStock" Type="Self.FabricStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FabricStock">
+              <PropertyRef Name="IdUnitHeight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FabricStock_Unit1">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="FabricStock" Type="Self.FabricStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FabricStock">
+              <PropertyRef Name="IdUnitWidth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurnitureStock_Furniture">
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="1" />
+          <End Role="FurnitureStock" Type="Self.FurnitureStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Furniture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FurnitureStock">
+              <PropertyRef Name="IdFurniture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurnitureStock_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="FurnitureStock" Type="Self.FurnitureStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FurnitureStock">
+              <PropertyRef Name="IdUnitHeight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurnitureStock_Unit1">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="FurnitureStock" Type="Self.FurnitureStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FurnitureStock">
+              <PropertyRef Name="IdUnitWidth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdUnitWidth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Unit1">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdUnitHeight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="user42Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Fabric" EntityType="Self.Fabric" />
+          <EntitySet Name="FabricStock" EntityType="Self.FabricStock" />
+          <EntitySet Name="Furniture" EntityType="Self.Furniture" />
+          <EntitySet Name="FurnitureStock" EntityType="Self.FurnitureStock" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="ScrapRule" EntityType="Self.ScrapRule" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="ProductionFabric" EntityType="Self.ProductionFabric" />
+          <AssociationSet Name="FK_ScrapRule_Material" Association="Self.FK_ScrapRule_Material">
+            <End Role="Fabric" EntitySet="Fabric" />
+            <End Role="ScrapRule" EntitySet="ScrapRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_Material" Association="Self.FK_Stock_Material">
+            <End Role="Fabric" EntitySet="Fabric" />
+            <End Role="FabricStock" EntitySet="FabricStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FabricStock_Unit" Association="Self.FK_FabricStock_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="FabricStock" EntitySet="FabricStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FabricStock_Unit1" Association="Self.FK_FabricStock_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="FabricStock" EntitySet="FabricStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurnitureStock_Furniture" Association="Self.FK_FurnitureStock_Furniture">
+            <End Role="Furniture" EntitySet="Furniture" />
+            <End Role="FurnitureStock" EntitySet="FurnitureStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurnitureStock_Unit" Association="Self.FK_FurnitureStock_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="FurnitureStock" EntitySet="FurnitureStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurnitureStock_Unit1" Association="Self.FK_FurnitureStock_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="FurnitureStock" EntitySet="FurnitureStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Unit" Association="Self.FK_Product_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Unit1" Association="Self.FK_Product_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="user42ModelStoreContainer" CdmEntityContainer="user42Entities">
+          <EntitySetMapping Name="Fabric">
+            <EntityTypeMapping TypeName="user42Model.Fabric">
+              <MappingFragment StoreEntitySet="Fabric">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Pattern" ColumnName="Pattern" />
+                <ScalarProperty Name="Composition" ColumnName="Composition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FabricStock">
+            <EntityTypeMapping TypeName="user42Model.FabricStock">
+              <MappingFragment StoreEntitySet="FabricStock">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdFabric" ColumnName="IdFabric" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="IdUnitWidth" ColumnName="IdUnitWidth" />
+                <ScalarProperty Name="IdUnitHeight" ColumnName="IdUnitHeight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Furniture">
+            <EntityTypeMapping TypeName="user42Model.Furniture">
+              <MappingFragment StoreEntitySet="Furniture">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FurnitureStock">
+            <EntityTypeMapping TypeName="user42Model.FurnitureStock">
+              <MappingFragment StoreEntitySet="FurnitureStock">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdFurniture" ColumnName="IdFurniture" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="IdUnitWidth" ColumnName="IdUnitWidth" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="IdUnitHeight" ColumnName="IdUnitHeight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="user42Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="IdUnitWidth" ColumnName="IdUnitWidth" />
+                <ScalarProperty Name="IdUnitHeight" ColumnName="IdUnitHeight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="user42Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScrapRule">
+            <EntityTypeMapping TypeName="user42Model.ScrapRule">
+              <MappingFragment StoreEntitySet="ScrapRule">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+                <ScalarProperty Name="IdUnit" ColumnName="IdUnit" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="user42Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unit">
+            <EntityTypeMapping TypeName="user42Model.Unit">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="user42Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductionFabric">
+            <EntityTypeMapping TypeName="user42Model.ProductionFabric">
+              <MappingFragment StoreEntitySet="ProductionFabric">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdProduction" ColumnName="IdProduction" />
+                <ScalarProperty Name="IdFabric" ColumnName="IdFabric" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
