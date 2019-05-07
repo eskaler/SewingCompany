@@ -22,7 +22,7 @@
             </Grid.RowDefinitions>
             <Image Grid.Row="0" Name="ImProductView"  Stretch="Uniform"/>
             <Image Grid.Row="1" Name="ImFabricView"  Stretch="Uniform"/>
-            <Image Grid.Row="2" Name="ImFurnitureView"  Stretch="Uniform"/>
+            <Image Grid.Row="2" Name="ImFurnitureView"  Stretch="Uniform" RenderTransformOrigin="0.5, 0.5"/>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -41,14 +41,18 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Изделие"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Ширина"/>
             <Label Grid.Row="1" Grid.Column="2" Content="Высота"/>
-            <Label Grid.Row="3" Grid.Column="0" Content="Ткань"/>
-            <Label Grid.Row="4" Grid.Column="0" Content="Окантовка"/>
-            <Label Grid.Row="5" Grid.Column="0" Content="Фурнитура"/>
+            
+            
 
             <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Name="CbProduct" DisplayMemberPath="DisplayName" SelectedValuePath="Id" SelectedIndex="0" SelectionChanged="CbProduct_SelectionChanged"/>
 
@@ -58,10 +62,45 @@
             <TextBox Grid.Row="2" Grid.Column="2" Name="TbHeight"/>
             <ComboBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="1" Name="CbHeightUnit" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedIndex="0" Margin="10 0 20 0"/>
 
-            <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Name="CbFabric" DisplayMemberPath="DisplayName" SelectedValuePath="Id" SelectedIndex="0" SelectionChanged="CbFabric_SelectionChanged"/>
-            <ComboBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Name="CbBorder"/>
-            <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Name="CbFurniture" DisplayMemberPath="DisplayName" SelectedValuePath="Id" SelectedIndex="0" SelectionChanged="CbFurniture_SelectionChanged"/>
+            <Rectangle Grid.Row="3" Grid.ColumnSpan="4" Height="2" Margin="2" VerticalAlignment="Stretch"  Stroke="{StaticResource bMain2}"/>
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Ткань"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Name="CbFabric" DisplayMemberPath="DisplayName" SelectedValuePath="Id" SelectedIndex="0" SelectionChanged="CbFabric_SelectionChanged"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Name="TbCustomFabricPath" IsReadOnly="True"/>
+            <Button Grid.Row="5" Grid.Column="3" Name="BtnAddCustomFabric" Content="Обзор" Click="BtnAddCustomFabric_Click"/>
+
+            <Rectangle Grid.Row="6" Grid.ColumnSpan="4" Height="2" Margin="2" VerticalAlignment="Stretch"  Stroke="{StaticResource bMain2}"/>
+
+            <Label Grid.Row="7" Grid.Column="0" Content="Окантовка"/>
+            <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" Name="CbBorder"/>
+
+            <Rectangle Grid.Row="8" Grid.ColumnSpan="4" Height="2" Margin="2" VerticalAlignment="Stretch"  Stroke="{StaticResource bMain2}"/>
             
+            <Label Grid.Row="9" Grid.Column="0" Content="Фурнитура"/>
+            <ComboBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Name="CbFurniture" DisplayMemberPath="DisplayName" SelectedValuePath="Id" SelectedIndex="0" SelectionChanged="CbFurniture_SelectionChanged"/>
+            <StackPanel Grid.Row="9" Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Stretch">
+                <Button Grid.Row="11" Grid.Column="1" Name="BtnRotateRight" Click="BtnRotateRight_Click" Width="15pt">
+                    <Button.Content>
+                        <Image Source="/SewingCompany;component/Resources/Images/System/arrow-clock.png"/>
+                    </Button.Content>
+                </Button>
+
+                <Button Grid.Row="11" Grid.Column="2" Name="BtnRotateLeft" Click="BtnRotateLeft_Click" Width="15pt">
+                    <Button.Content>
+                        <Image Source="/SewingCompany;component/Resources/Images/System/arrow-clockwise.png" />
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+            
+            <TextBox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Name="TbCustomFurniturePath" IsReadOnly="True"/>
+            <Button Grid.Row="10" Grid.Column="3" Name="BtnAddCustomFurniture"  Content="Обзор" Click="BtnAddCustomFabric_Click"/>
+
+            <Rectangle Grid.Row="11" Grid.ColumnSpan="4" Height="2" Margin="2" VerticalAlignment="Stretch"  Stroke="{StaticResource bMain2}"/>
+
+            <Button Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Name="BtnOrder"  Content="Заказать"/>
+
+
+
         </Grid>
     </Grid>
 </Page>

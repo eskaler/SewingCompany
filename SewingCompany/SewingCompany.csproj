@@ -240,6 +240,8 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
       <LastGenOutput>DataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\System\arrow-clock.png" />
+    <Resource Include="Resources\Images\System\arrow-clockwise.png" />
     <Resource Include="Resources\Images\System\no-image.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
