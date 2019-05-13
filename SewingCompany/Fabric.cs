@@ -23,16 +23,10 @@ namespace SewingCompany
     
         public string Id { get; set; }
         public string Name { get; set; }
-        public Nullable<decimal> PurchasePrice { get; set; }
         public string Color { get; set; }
         public string Pattern { get; set; }
         public string Composition { get; set; }
-
-        public string DisplayName
-        {
-            get { return Name + " (Рав. " + Id + ")"; }
-        }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScrapRule> ScrapRule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -20,6 +20,7 @@ namespace SewingCompany
         public Nullable<decimal> Height { get; set; }
         public Nullable<int> IdUnitWidth { get; set; }
         public Nullable<int> IdUnitHeight { get; set; }
+        public Nullable<double> PurchasePrice { get; set; }
     
         public virtual Fabric Fabric { get; set; }
         public virtual Unit Unit { get; set; }

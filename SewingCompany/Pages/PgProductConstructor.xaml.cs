@@ -30,6 +30,7 @@ namespace SewingCompany.Pages
 
             CbFabric.ItemsSource = Db.Conn.Fabric.ToList();
             CbFurniture.ItemsSource = Db.Conn.Furniture.ToList();
+            CbBorder.ItemsSource = Db.Conn.Fabric.ToList();
             
         }
 
@@ -70,6 +71,18 @@ namespace SewingCompany.Pages
             }
         }
 
+        private void CbBorder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ImBorderView.Source = new BitmapImage(new Uri(@"E:\НЧ 2017\Resources\Сессия 1\images\Ткани\" + CbBorder.SelectedValue + ".jpg", UriKind.Absolute));
+            }
+            catch
+            {
+                ImBorderView.Source = new BitmapImage(new Uri(@".\..\Resources\Images\System\no-image.jpg", UriKind.RelativeOrAbsolute));
+            }
+        }
+
         RotateTransform FurnitureRotation = new RotateTransform(0);
 
         private void BtnRotateLeft_Click(object sender, RoutedEventArgs e)
@@ -106,5 +119,7 @@ namespace SewingCompany.Pages
                 
             }
         }
+
+
     }
 }

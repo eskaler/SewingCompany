@@ -18,7 +18,7 @@
         <TabControl Grid.Row="1">
             <TabItem Header="Ткани">
                 <Grid>
-                    <DataGrid Name="DgFabric" AutoGenerateColumns="False" AlternationCount="2">
+                    <DataGrid Name="DgFabric" AutoGenerateColumns="False" AlternationCount="2" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Fabric.Id}" Header="Артикул"/>
                             <DataGridTextColumn Binding="{Binding Fabric.Name}" Header="название"/>
@@ -35,7 +35,7 @@
             </TabItem>
             <TabItem Header="Фурнитура">
                 <Grid>
-                    <DataGrid Name="DgFurniture" AutoGenerateColumns="False" AlternationCount="2">
+                    <DataGrid Name="DgFurniture" AutoGenerateColumns="False" AlternationCount="2" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Furniture.Id}" Header="Артикул"/>
                             <DataGridTextColumn Binding="{Binding Furniture.Name}" Header="название"/>
@@ -47,6 +47,30 @@
                             <DataGridTextColumn Binding="{Binding Unit1.Name}" Header="ед."/>
                         </DataGrid.Columns>
                     </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Обработка поставок">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".8*"/>
+                        <RowDefinition Height=".1*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Grid.Row="0" Name="BtUploadSupplyFile" Content="Загрузить файл" Width="100pt" HorizontalAlignment="Left" Click="BtUploadSupplyFile_Click"/>
+                        <TextBox Grid.Row="0" Name="TbSupplyFilePath" Width="200" IsReadOnly="True"/>
+                    </StackPanel>
+                    <DataGrid Grid.Row="1"  Name="DgSupplyFileContnet" IsReadOnly="True" AlternationCount="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding IdFabric}" Header="Артикул"/>
+                            <DataGridTextColumn Binding="{Binding Width}" Header="Ширина"/>
+                            <DataGridTextColumn Binding="{Binding Unit.Name}" Header="ед."/>
+                            <DataGridTextColumn Binding="{Binding Height}" Header="Длина"/>
+                            <DataGridTextColumn Binding="{Binding Unit1.Name}" Header="ед."/>
+                            <DataGridTextColumn Binding="{Binding PurchasePrice}" Header="Закупочная цена"/>
+                        </DataGrid.Columns>    
+                    </DataGrid>
+                    <Button Grid.Row="2" Name="BtnAcceptSupplyFile" Content="Принять на учет" Width="100pt" HorizontalAlignment="Left"/>
                 </Grid>
             </TabItem>
         </TabControl>
