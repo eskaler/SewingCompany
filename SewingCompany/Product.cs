@@ -21,7 +21,15 @@ namespace SewingCompany
         public Nullable<decimal> Height { get; set; }
         public Nullable<int> IdUnitWidth { get; set; }
         public Nullable<int> IdUnitHeight { get; set; }
-    
+
+        public string DisplayName
+        {
+            get
+            {
+                return Name + " (Рав. " + Id + ")";
+            }
+        }
+
         public virtual Unit Unit { get; set; }
         public virtual Unit Unit1 { get; set; }
     }

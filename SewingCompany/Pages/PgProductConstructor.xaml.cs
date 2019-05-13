@@ -34,12 +34,14 @@ namespace SewingCompany.Pages
             
         }
 
+        public string ImagesPath = @"E:\НЧ 2017\Resources\Сессия 1\images\";
+
         private void CbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
             try
             {
-                ImProductView.Source = new BitmapImage(new Uri(@"E:\НЧ 2017\Resources\Сессия 1\images\Изделия\" + CbProduct.SelectedValue + ".jpg", UriKind.Absolute));
+                ImProductView.Source = new BitmapImage(new Uri(ImagesPath + @"Изделия\" + CbProduct.SelectedValue + ".jpg", UriKind.Absolute));
             }
             catch
             {
@@ -51,7 +53,7 @@ namespace SewingCompany.Pages
         {
             try
             {
-                ImFabricView.Source = new BitmapImage(new Uri(@"E:\НЧ 2017\Resources\Сессия 1\images\Ткани\" + CbFabric.SelectedValue + ".jpg", UriKind.Absolute));
+                ImFabricView.Source = new BitmapImage(new Uri(ImagesPath + @"Ткани\" + CbFabric.SelectedValue + ".jpg", UriKind.Absolute));
             }
             catch
             {
@@ -63,7 +65,7 @@ namespace SewingCompany.Pages
         {
             try
             {
-                ImFurnitureView.Source = new BitmapImage(new Uri(@"E:\НЧ 2017\Resources\Сессия 1\images\Фурнитура\" + CbFurniture.SelectedValue + ".jpg", UriKind.Absolute));
+                ImFurnitureView.Source = new BitmapImage(new Uri(ImagesPath + @"Фурнитура\" + CbFurniture.SelectedValue + ".jpg", UriKind.Absolute));
             }
             catch
             {
@@ -75,7 +77,7 @@ namespace SewingCompany.Pages
         {
             try
             {
-                ImBorderView.Source = new BitmapImage(new Uri(@"E:\НЧ 2017\Resources\Сессия 1\images\Ткани\" + CbBorder.SelectedValue + ".jpg", UriKind.Absolute));
+                ImBorderView.Source = new BitmapImage(new Uri(ImagesPath + @"Ткани\" + CbBorder.SelectedValue + ".jpg", UriKind.Absolute));
             }
             catch
             {

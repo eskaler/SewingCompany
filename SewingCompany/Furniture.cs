@@ -24,7 +24,15 @@ namespace SewingCompany
         public string Name { get; set; }
         public string Type { get; set; }
         public Nullable<double> PurchasePrice { get; set; }
-    
+
+        public string DisplayName
+        {
+            get
+            {
+                return Name + " (Рав. " + Id + ")";
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FurnitureStock> FurnitureStock { get; set; }
     }
