@@ -56,11 +56,15 @@
                         <RowDefinition Height=".8*"/>
                         <RowDefinition Height=".1*"/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal">
-                        <Button Grid.Row="0" Name="BtUploadSupplyFile" Content="Загрузить файл" Width="100pt" HorizontalAlignment="Left" Click="BtUploadSupplyFile_Click"/>
+                        <Button Grid.Row="0" Name="BtUploadSupplyFile" Content="Загрузить файл" Width="100pt" HorizontalAlignment="Left" Click="BtUploadSupplyFile_Click" />
                         <TextBox Grid.Row="0" Name="TbSupplyFilePath" Width="200" IsReadOnly="True"/>
                     </StackPanel>
-                    <DataGrid Grid.Row="1"  Name="DgSupplyFileContnet" IsReadOnly="True" AlternationCount="2">
+                    <DataGrid Grid.Row="1" Name="DgSupplyFileContnet" IsReadOnly="True" AlternationCount="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding IdFabric}" Header="Артикул"/>
                             <DataGridTextColumn Binding="{Binding Width}" Header="Ширина"/>
@@ -70,7 +74,9 @@
                             <DataGridTextColumn Binding="{Binding PurchasePrice}" Header="Закупочная цена"/>
                         </DataGrid.Columns>    
                     </DataGrid>
-                    <Button Grid.Row="2" Name="BtnAcceptSupplyFile" Content="Принять на учет" Width="100pt" HorizontalAlignment="Left"/>
+                    <Button Grid.Row="2" Name="BtnAcceptSupplyFile" Content="Принять на учет" Width="100pt" HorizontalAlignment="Left" Click="BtnAcceptSupplyFile_Click" IsEnabled="False"/>
+                    <Label Grid.Row="0" Grid.Column="1" Content="Документы принятые на учет"/>
+                    <ListBox Grid.Row="1" Grid.Column="1" Name="LbAcceptedsupplyFiles" SelectionChanged="LbAcceptedsupplyFiles_SelectionChanged"/>
                 </Grid>
             </TabItem>
         </TabControl>

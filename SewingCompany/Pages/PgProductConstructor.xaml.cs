@@ -90,13 +90,19 @@ namespace SewingCompany.Pages
         private void BtnRotateLeft_Click(object sender, RoutedEventArgs e)
         {
             FurnitureRotation.Angle -= 10;
+            if (FurnitureRotation.Angle == -360)
+                FurnitureRotation.Angle = 0;
             ImFurnitureView.RenderTransform = FurnitureRotation;
+            LabRotationDegree.Content = FurnitureRotation.Angle.ToString() + "°";
         }
 
         private void BtnRotateRight_Click(object sender, RoutedEventArgs e)
         {
             FurnitureRotation.Angle += 10;
+            if (FurnitureRotation.Angle == 360)
+                FurnitureRotation.Angle = 0;
             ImFurnitureView.RenderTransform = FurnitureRotation;
+            LabRotationDegree.Content = FurnitureRotation.Angle.ToString() + "°";
         }
 
         private void BtnAddCustomFabric_Click(object sender, RoutedEventArgs e)
@@ -122,6 +128,9 @@ namespace SewingCompany.Pages
             }
         }
 
-
+        private void BtnOrder_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

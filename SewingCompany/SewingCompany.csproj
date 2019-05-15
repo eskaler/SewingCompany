@@ -244,5 +244,8 @@
       <LastGenOutput>DataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Storage\SupplyFiles\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

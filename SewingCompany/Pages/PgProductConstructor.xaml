@@ -105,6 +105,8 @@
                         <Image Source="/SewingCompany;component/Resources/Images/System/arrow-clockwise.png" />
                     </Button.Content>
                 </Button>
+
+                <Label Name="LabRotationDegree"/>
             </StackPanel>
             
             <TextBox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Name="TbCustomFurniturePath" IsReadOnly="True"/>
@@ -112,7 +114,7 @@
 
             <Rectangle Grid.Row="11" Grid.ColumnSpan="4" Height="2" Margin="2" VerticalAlignment="Stretch"  Stroke="{StaticResource bMain2}"/>
 
-            <Button Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Name="BtnOrder"  Content="Заказать"/>
+            <Button Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Name="BtnOrder"  Content="Заказать" Click="BtnOrder_Click"/>
 
 
 
