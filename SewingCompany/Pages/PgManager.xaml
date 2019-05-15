@@ -15,6 +15,30 @@
             <RowDefinition Height=".8*"/>
         </Grid.RowDefinitions>
         <controls:UcHeader PageName="Меню менеджера"/>
-        <Frame Grid.Row="1" Name="FrProductList" NavigationUIVisibility="Hidden"/>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Заказы">
+                <DataGrid Name="DgOrders" IsReadOnly="True" AutoGenerateColumns="False" AlternationCount="2">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Id}" Header="№ заказа"/>
+                        <DataGridTextColumn Binding="{Binding User.Login}" Header="Заказчик"/>
+                        <DataGridTextColumn Binding="{Binding Date}" Header="Дата"/>
+                        <DataGridTextColumn Binding="{Binding OrderState.Name}" Header="Статус"/>
+                        <DataGridTextColumn Binding="{Binding IdManager}" Header="Менеджер"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Name="BtnAccept" Content="Принять в обработку" Click="BtnAccept_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Список изделий">
+                <Frame Grid.Row="1" Name="FrProductList" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+        </TabControl>
+        
     </Grid>
 </Page>
+

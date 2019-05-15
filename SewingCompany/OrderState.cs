@@ -15,11 +15,11 @@ namespace SewingCompany
 using System;
     using System.Collections.Generic;
     
-public partial class User
+public partial class OrderState
 {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public User()
+    public OrderState()
     {
 
         this.Order = new HashSet<Order>();
@@ -29,15 +29,9 @@ public partial class User
 
     public int Id { get; set; }
 
-    public string Login { get; set; }
-
-    public string Password { get; set; }
-
-    public int IdRole { get; set; }
+    public string Name { get; set; }
 
 
-
-    public virtual Role Role { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 

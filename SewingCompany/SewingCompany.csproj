@@ -93,6 +93,12 @@
     <Compile Include="FurnitureStock.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderState.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PgCustomer.xaml.cs">
       <DependentUpon>PgCustomer.xaml</DependentUpon>
     </Compile>
@@ -112,9 +118,6 @@
       <DependentUpon>PgStockman.xaml</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductionFabric.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">

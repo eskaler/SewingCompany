@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="user42Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="user42Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Fabric">
           <Key>
             <PropertyRef Name="Id" />
@@ -48,6 +48,23 @@
           <Property Name="IdUnitHeight" Type="int" />
           <Property Name="PurchasePrice" Type="float" />
         </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="IdState" Type="int" Nullable="false" />
+          <Property Name="IdManager" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
@@ -59,18 +76,6 @@
           <Property Name="Height" Type="decimal" Precision="18" Scale="0" />
           <Property Name="IdUnitWidth" Type="int" />
           <Property Name="IdUnitHeight" Type="int" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ProductionFabric">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="IdProduction" />
-            <PropertyRef Name="IdFabric" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="IdProduction" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IdFabric" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -164,6 +169,30 @@ warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_OrderState">
+          <End Role="OrderState" Type="Self.OrderState" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IdState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_Unit">
           <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -229,18 +258,13 @@ warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a prima
           <EntitySet Name="FabricStock" EntityType="Self.FabricStock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Furniture" EntityType="Self.Furniture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FurnitureStock" EntityType="Self.FurnitureStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderState" EntityType="Self.OrderState" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScrapRule" EntityType="Self.ScrapRule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductionFabric" EntityType="Self.ProductionFabric" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ProductionFabric].[Id] AS [Id], 
-    [ProductionFabric].[IdProduction] AS [IdProduction], 
-    [ProductionFabric].[IdFabric] AS [IdFabric]
-    FROM [dbo].[ProductionFabric] AS [ProductionFabric]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_FabricStock_Unit" Association="Self.FK_FabricStock_Unit">
             <End Role="Unit" EntitySet="Unit" />
             <End Role="FabricStock" EntitySet="FabricStock" />
@@ -260,6 +284,14 @@ warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a prima
           <AssociationSet Name="FK_FurnitureStock_Unit1" Association="Self.FK_FurnitureStock_Unit1">
             <End Role="Unit" EntitySet="Unit" />
             <End Role="FurnitureStock" EntitySet="FurnitureStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_OrderState" Association="Self.FK_Order_OrderState">
+            <End Role="OrderState" EntitySet="OrderState" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Unit" Association="Self.FK_Product_Unit">
             <End Role="Unit" EntitySet="Unit" />
@@ -282,8 +314,7 @@ warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a prima
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="user42Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -393,16 +424,7 @@ warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a prima
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdRole" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="ProductionFabric">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="IdProduction" />
-            <PropertyRef Name="IdFabric" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="IdProduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdFabric" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="user42Model.FK_Order_User" FromRole="User" ToRole="Order" />
         </EntityType>
         <Association Name="FK_ScrapRule_Material">
           <End Role="Fabric" Type="Self.Fabric" Multiplicity="1" />
@@ -534,7 +556,6 @@ warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a prima
           <EntitySet Name="ScrapRule" EntityType="Self.ScrapRule" />
           <EntitySet Name="Unit" EntityType="Self.Unit" />
           <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="ProductionFabric" EntityType="Self.ProductionFabric" />
           <AssociationSet Name="FK_ScrapRule_Material" Association="Self.FK_ScrapRule_Material">
             <End Role="Fabric" EntitySet="Fabric" />
             <End Role="ScrapRule" EntitySet="ScrapRule" />
@@ -575,7 +596,61 @@ warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a prima
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="Order" EntityType="user42Model.Order" />
+          <EntitySet Name="OrderState" EntityType="user42Model.OrderState" />
+          <AssociationSet Name="FK_Order_OrderState" Association="user42Model.FK_Order_OrderState">
+            <End Role="OrderState" EntitySet="OrderState" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="user42Model.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdState" Type="Int32" Nullable="false" />
+          <Property Name="IdManager" Type="Int32" />
+          <NavigationProperty Name="OrderState" Relationship="user42Model.FK_Order_OrderState" FromRole="Order" ToRole="OrderState" />
+          <NavigationProperty Name="User" Relationship="user42Model.FK_Order_User" FromRole="Order" ToRole="User" />
+        </EntityType>
+        <EntityType Name="OrderState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Order" Relationship="user42Model.FK_Order_OrderState" FromRole="OrderState" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_Order_OrderState">
+          <End Type="user42Model.OrderState" Role="OrderState" Multiplicity="1" />
+          <End Type="user42Model.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IdState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Type="user42Model.User" Role="User" Multiplicity="1" />
+          <End Type="user42Model.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -678,12 +753,22 @@ warning 6002: The table/view 'user42.dbo.ProductionFabric' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductionFabric">
-            <EntityTypeMapping TypeName="user42Model.ProductionFabric">
-              <MappingFragment StoreEntitySet="ProductionFabric">
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="user42Model.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="IdManager" ColumnName="IdManager" />
+                <ScalarProperty Name="IdState" ColumnName="IdState" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="IdProduction" ColumnName="IdProduction" />
-                <ScalarProperty Name="IdFabric" ColumnName="IdFabric" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderState">
+            <EntityTypeMapping TypeName="user42Model.OrderState">
+              <MappingFragment StoreEntitySet="OrderState">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
