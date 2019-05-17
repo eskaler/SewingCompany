@@ -35,7 +35,7 @@ namespace SewingCompany.Pages
             
         }
 
-        public string ImagesPath = @"E:\НЧ 2017\Resources\Сессия 1\images\";
+        public string ImagesPath = @"D:\TTI\Демонстрационный экзамен\задание\НЧ 2017\Resources\Сессия 1\images\";
 
         private void CbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -135,7 +135,7 @@ namespace SewingCompany.Pages
             Fabric fabric = new Fabric { Id = (string)CbFabric.SelectedValue };
             Furniture furniture = new Furniture { Id = (string)CbFurniture.SelectedValue };*/
 
-            Transfer.OrderItems.Add(new OrderList
+            Transfer.CurrentOrder.OrderList.Add(new OrderList
             {
                 IdProduct = (string)CbProduct.SelectedValue,
                 //Product = product,

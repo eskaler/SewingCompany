@@ -24,7 +24,7 @@ namespace SewingCompany.Pages
         public PgOrderList()
         {
             InitializeComponent();
-            DgOrderList.ItemsSource = Transfer.OrderItems;
+            DgOrderList.ItemsSource = Transfer.CurrentOrder.OrderList.ToList();
             LabOrderName.Content = "Заказ: " + (Transfer.CurrentOrder.Id == 0 ? "Новый" : "№ " + Transfer.CurrentOrder.Id.ToString());
         }
 
@@ -35,9 +35,9 @@ namespace SewingCompany.Pages
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
         {
-            if (Transfer.CurrentOrder.OrderList.Count() == 0)
+            if (Transfer.CurrentOrder.OrderList.Count() == 0 && Transfer.CurrentOrder.Id != 0)
             {
-                MessageBox.Show("oj, there're actually zero items. let's delete this");
+                MessageBox.Show("Заказ будет удален, т.к. в нем остуствуют изделия.");
                 var orderToDelete = Db.Conn.Order.Where(u => u.Id == Transfer.CurrentOrder.Id).First();
                 if(orderToDelete != null)
                 {
@@ -51,12 +51,15 @@ namespace SewingCompany.Pages
 
         private void BtnCreateOrder_Click(object sender, RoutedEventArgs e)
         {
+            //Дополнение данных для оформления заказа
             Transfer.CurrentOrder.Date = DateTime.Now;
+            Transfer.CurrentOrder.IdState = 1;
+
             Db.Conn.Order.Add(Transfer.CurrentOrder);
             Db.Conn.SaveChanges();
             List<Order> tempOrder = Db.Conn.Order.Where(u => u.IdUser == Transfer.LoggedUser.Id).ToList();
             var idOrder = tempOrder.Last().Id;
-            foreach (var item in Transfer.OrderItems)
+            foreach (var item in Transfer.CurrentOrder.OrderList.ToList())
             {
                 item.IdOrder = idOrder;
                 Db.Conn.OrderList.Add(item);
@@ -75,10 +78,9 @@ namespace SewingCompany.Pages
                     OrderList orderItem = ((FrameworkElement)sender).DataContext as OrderList;
 
                     Transfer.CurrentOrder.OrderList.Remove(orderItem);
-                    Transfer.OrderItems.Remove(orderItem);
                     Db.Conn.OrderList.Remove(orderItem);
                     Db.Conn.SaveChanges();
-                    DgOrderList.ItemsSource = Transfer.OrderItems;
+                    DgOrderList.ItemsSource = Transfer.CurrentOrder.OrderList.ToList();
                 }
                 
                 

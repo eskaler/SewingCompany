@@ -12,7 +12,6 @@ namespace SewingCompany.Utilities
         public static User LoggedUser;
 
         //Order stuff
-        public static List<OrderList> OrderItems = new List<OrderList>();
         public static Order CurrentOrder;
 
     }

@@ -39,7 +39,7 @@ namespace SewingCompany.Pages
         private void BtnAccept_Click(object sender, RoutedEventArgs e)
         {
             Order orderToEdit = ((FrameworkElement)sender).DataContext as Order;
-            Transfer.OrderItems = orderToEdit.OrderList.ToList();
+            Transfer.CurrentOrder.OrderList = orderToEdit.OrderList.ToList();
             Transfer.CurrentOrder = orderToEdit;
             NavigationService.GetNavigationService(this).Navigate(new PgOrderList());
         }
