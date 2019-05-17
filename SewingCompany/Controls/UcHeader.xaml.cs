@@ -27,6 +27,7 @@ namespace SewingCompany.Controls
             set { LbPageName.Content = value; }
         }
 
+
         public bool ExitVisible
         {
             get { return BtnExit.IsVisible; }
@@ -48,6 +49,11 @@ namespace SewingCompany.Controls
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GetNavigationService(this.Parent).Navigate(new Uri("./../Pages/PgAuthorisation.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GetNavigationService(this.Parent).GoBack();
         }
     }
 }

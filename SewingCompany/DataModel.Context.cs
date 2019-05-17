@@ -54,6 +54,8 @@ public partial class user42Entities : DbContext
 
     public virtual DbSet<OrderState> OrderState { get; set; }
 
+    public virtual DbSet<OrderList> OrderList { get; set; }
+
 }
 
 }

@@ -26,6 +26,8 @@ public partial class Fabric
 
         this.FabricStock = new HashSet<FabricStock>();
 
+        this.OrderList = new HashSet<OrderList>();
+
     }
 
 
@@ -39,15 +41,22 @@ public partial class Fabric
 
     public string Composition { get; set; }
 
+        public string DisplayName
+        {
+            get { return string.Format("{0} (Рав. {1})", Name, Id); }
+        }
 
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<ScrapRule> ScrapRule { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<FabricStock> FabricStock { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<OrderList> OrderList { get; set; }
 
 }
 

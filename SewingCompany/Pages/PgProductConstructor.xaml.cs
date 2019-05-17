@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using SewingCompany.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,7 +131,25 @@ namespace SewingCompany.Pages
 
         private void BtnOrder_Click(object sender, RoutedEventArgs e)
         {
-            
+/*            Product product = new Product { Id = (string)CbProduct.SelectedValue };
+            Fabric fabric = new Fabric { Id = (string)CbFabric.SelectedValue };
+            Furniture furniture = new Furniture { Id = (string)CbFurniture.SelectedValue };*/
+
+            Transfer.OrderItems.Add(new OrderList
+            {
+                IdProduct = (string)CbProduct.SelectedValue,
+                //Product = product,
+                IdFabric = (string)CbFabric.SelectedValue,
+                //Fabric = fabric,
+                IdFurniture = (string)CbFurniture.SelectedValue
+                //Furniture = furniture
+            });
+            NavigationService.GetNavigationService(this).Navigate(new PgOrderList());
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GetNavigationService(this).GoBack();
         }
     }
 }

@@ -18,6 +18,15 @@ using System;
 public partial class Product
 {
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public Product()
+    {
+
+        this.OrderList = new HashSet<OrderList>();
+
+    }
+
+
     public string Id { get; set; }
 
     public string Description { get; set; }
@@ -32,11 +41,18 @@ public partial class Product
 
     public Nullable<int> IdUnitHeight { get; set; }
 
+        public string DisplayName
+        {
+            get { return string.Format("{0} (Рав. {1})", Name, Id); }
+        }
 
-
-    public virtual Unit Unit { get; set; }
+        public virtual Unit Unit { get; set; }
 
     public virtual Unit Unit1 { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<OrderList> OrderList { get; set; }
 
 }
 

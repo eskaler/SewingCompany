@@ -96,6 +96,9 @@
     <Compile Include="Order.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrderList.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="OrderState.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -107,6 +110,12 @@
     </Compile>
     <Compile Include="Pages\PgManager.xaml.cs">
       <DependentUpon>PgManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PgOrderList.xaml.cs">
+      <DependentUpon>PgOrderList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PgOrders.xaml.cs">
+      <DependentUpon>PgOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PgProductConstructor.xaml.cs">
       <DependentUpon>PgProductConstructor.xaml</DependentUpon>
@@ -132,6 +141,8 @@
     <Compile Include="User.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Assistants.cs" />
+    <Compile Include="Utilities\Transfer.cs" />
     <Page Include="Controls\UcHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -164,6 +175,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PgManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PgOrderList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PgOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

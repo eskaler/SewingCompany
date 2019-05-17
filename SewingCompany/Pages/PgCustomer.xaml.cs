@@ -23,7 +23,7 @@ namespace SewingCompany.Pages
         public PgCustomer()
         {
             InitializeComponent();
-            FrProductConstructor.Navigate(new PgProductConstructor());
+            FrCustomerOrderMenu.Navigate(new PgOrders());
         }
     }
 }

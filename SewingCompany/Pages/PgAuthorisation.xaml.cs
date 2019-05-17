@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SewingCompany.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,7 @@ namespace SewingCompany.Pages
             }
             else
             {
+                Transfer.LoggedUser = user;
                 switch (user.IdRole)
                 {
                     case 1:

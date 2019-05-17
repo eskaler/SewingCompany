@@ -16,9 +16,11 @@
         </Grid.RowDefinitions>
         <controls:UcHeader Grid.Row="0" x:Name="HePageName" PageName="Меню заказчика"/>
         <TabControl Grid.Row="1">
-            <TabItem Header="Конструктор изделия">
-                <Frame Name="FrProductConstructor" NavigationUIVisibility="Hidden"/>
+            <TabItem Header="Мои заказы">
+                <Frame Name="FrCustomerOrderMenu" NavigationUIVisibility="Hidden"/>
             </TabItem>
         </TabControl>
     </Grid>
 </Page>
+
+    

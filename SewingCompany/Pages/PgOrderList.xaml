@@ -1,0 +1,40 @@
+﻿<Page x:Class="SewingCompany.Pages.PgOrderList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SewingCompany.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PgOrderList">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".1*"/>
+            <RowDefinition Height=".9*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button Name="BtnCreateOrder" Content="Оформить заказ" HorizontalAlignment="Left" Click="BtnCreateOrder_Click"/>
+            <Button Name="BtnAddProduct" Content="Новое изделие" HorizontalAlignment="Left" Click="BtnAddProduct_Click"/>
+            <Button Name="BtnGoBack" Content="Назад" HorizontalAlignment="Left" Click="BtnGoBack_Click"/>
+            <Label Name="LabOrderName" Content="Заказ:"/>
+        </StackPanel>
+        
+        <DataGrid Grid.Row="1" Name="DgOrderList" IsReadOnly="True" AutoGenerateColumns="False" AlternationCount="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Артикул изделия"/>
+                <DataGridTextColumn Binding="{Binding Product.DisplayName}" Header="Изделие"/>
+                <DataGridTextColumn Binding="{Binding Fabric.DisplayName}" Header="Ткань"/>
+                <DataGridTextColumn Binding="{Binding Furniture.DisplayName}" Header="Фурнитура"/>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="BtnRemoveProduct" Content="Удалить" Click="BtnRemoveProduct_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

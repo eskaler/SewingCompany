@@ -114,7 +114,17 @@
 
             <Rectangle Grid.Row="11" Grid.ColumnSpan="4" Height="2" Margin="2" VerticalAlignment="Stretch"  Stroke="{StaticResource bMain2}"/>
 
-            <Button Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Name="BtnOrder"  Content="Заказать" Click="BtnOrder_Click"/>
+            <Grid Grid.Row="12" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width=".5*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="0"  Name="BtnGoBack"  Content="Назад" Click="BtnGoBack_Click"/>
+                <Button Grid.Row="0" Grid.Column="1"  Name="BtnOrder"  Content="Заказать" Click="BtnOrder_Click"/>
+                
+            </Grid>
+            
+            
 
 
 
