@@ -24,13 +24,9 @@ namespace SewingCompany.Pages
         {
             InitializeComponent();
             FrProductList.Navigate(new PgProductList());
-            DgOrders.ItemsSource = Db.Conn.Order.ToList();
+            FrOrders.Navigate(new PgOrders());
+            
         }
 
-        private void BtnAccept_Click(object sender, RoutedEventArgs e)
-        {
-            Order obj = ((FrameworkElement)sender).DataContext as Order;
-            MessageBox.Show(obj.OrderState.Name);
-        }
     }
 }

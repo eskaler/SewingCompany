@@ -20,14 +20,37 @@
         <DataGrid Grid.Row="1" Name="DgOrders" IsReadOnly="True" AutoGenerateColumns="False" AlternationCount="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="№ заказа"/>
+                <DataGridTextColumn Binding="{Binding IdUser}" Header="Id пользователя" x:Name="DgtcIdUser"/>
                 <DataGridTextColumn Binding="{Binding Date}" Header="Дата"/>
                 <DataGridTextColumn Binding="{Binding OrderState.Name}" Header="Статус"/>
                 <DataGridTextColumn Binding="{Binding IdManager}" Header="Менеджер"/>
-                <DataGridTextColumn Binding="{Binding Cost}" Header="Стоимость"/>
-                <DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Price}" Header="Стоимость"/>
+                <DataGridTemplateColumn x:Name="DgtcBtnPay">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Name="BtnAccept" Content="Изменить" Click="BtnAccept_Click"/>
+                            <Button Name="BtnPay" Content="Оплатить" Click="BtnPay_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="DgtcBtnEdit">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="BtnEdit" Content="Изменить" Click="BtnEdit_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="DgtcCbOrderState">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Name="CbOrderState" SelectionChanged="CbOrderState_SelectionChanged" SelectedIndex="0">
+                                <ComboBox.Items>
+                                    <ComboBoxItem Content="Выберите статус"/>
+                                    <ComboBoxItem Content="Обработка"/>
+                                    <ComboBoxItem Content="Отклонено"/>
+                                    <ComboBoxItem Content="К оплате"/>
+                                </ComboBox.Items>
+                            </ComboBox>
+                            
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

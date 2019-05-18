@@ -24,7 +24,7 @@ public partial class Furniture
 
         this.FurnitureStock = new HashSet<FurnitureStock>();
 
-        this.OrderList = new HashSet<OrderList>();
+        this.OrderItem = new HashSet<OrderItem>();
 
     }
 
@@ -37,18 +37,15 @@ public partial class Furniture
 
     public Nullable<double> PurchasePrice { get; set; }
 
-    public string DisplayName
-        {
-            get { return string.Format("{0} (Рав. {1})", Name, Id); }
-        }
+        public string DisplayName { get { return string.Format("{0} (APT. {1})", Name, Id); } }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<FurnitureStock> FurnitureStock { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<OrderList> OrderList { get; set; }
+    public virtual ICollection<OrderItem> OrderItem { get; set; }
 
 }
 

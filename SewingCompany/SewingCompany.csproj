@@ -96,7 +96,7 @@
     <Compile Include="Order.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrderList.cs">
+    <Compile Include="OrderItem.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OrderState.cs">

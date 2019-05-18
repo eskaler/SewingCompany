@@ -35,11 +35,11 @@ namespace SewingCompany.Pages
             
         }
 
+        //путь к изображениям
         public string ImagesPath = @"D:\TTI\Демонстрационный экзамен\задание\НЧ 2017\Resources\Сессия 1\images\";
 
         private void CbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
             try
             {
                 ImProductView.Source = new BitmapImage(new Uri(ImagesPath + @"Изделия\" + CbProduct.SelectedValue + ".jpg", UriKind.Absolute));
@@ -86,6 +86,8 @@ namespace SewingCompany.Pages
             }
         }
 
+
+        //переменная для хранения угла поворота
         RotateTransform FurnitureRotation = new RotateTransform(0);
 
         private void BtnRotateLeft_Click(object sender, RoutedEventArgs e)
@@ -106,6 +108,7 @@ namespace SewingCompany.Pages
             LabRotationDegree.Content = FurnitureRotation.Angle.ToString() + "°";
         }
 
+        //добавление собственной ткани
         private void BtnAddCustomFabric_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -131,18 +134,27 @@ namespace SewingCompany.Pages
 
         private void BtnOrder_Click(object sender, RoutedEventArgs e)
         {
-/*            Product product = new Product { Id = (string)CbProduct.SelectedValue };
-            Fabric fabric = new Fabric { Id = (string)CbFabric.SelectedValue };
-            Furniture furniture = new Furniture { Id = (string)CbFurniture.SelectedValue };*/
+            double productPrice = (
+                    Convert.ToDouble(Db.Conn.FabricStock.Where(u => u.IdFabric == (string)CbFabric.SelectedValue).FirstOrDefault().PurchasePrice) +
+                    Convert.ToDouble(Db.Conn.FurnitureStock.Where(u => u.IdFurniture == (string)CbFurniture.SelectedValue).FirstOrDefault().PurchasePrice) +
+                    Convert.ToDouble(Db.Conn.FabricStock.Where(u => u.IdFabric == (string)CbBorder.SelectedValue).FirstOrDefault().PurchasePrice)
+                ) * Convert.ToDouble(TbProductAmount.Text);
 
-            Transfer.CurrentOrder.OrderList.Add(new OrderList
+
+            //сохранение изделия в заказ
+            Transfer.CurrentOrder.OrderItem.Add(new OrderItem
             {
                 IdProduct = (string)CbProduct.SelectedValue,
-                //Product = product,
                 IdFabric = (string)CbFabric.SelectedValue,
-                //Fabric = fabric,
-                IdFurniture = (string)CbFurniture.SelectedValue
-                //Furniture = furniture
+                IdFurniture = (string)CbFurniture.SelectedValue,
+                IdBorder = (string)CbBorder.SelectedValue,
+                RotationAngle = Convert.ToInt32(FurnitureRotation.Angle),
+                Width = Convert.ToDouble(TbWidth.Text),
+                Height = Convert.ToDouble(TbHeight.Text),
+                IdUnitHeight = (int)CbHeightUnit.SelectedValue,
+                IdUnitWidth = (int)CbWidthUnit.SelectedValue,
+                Amount = Convert.ToInt32(TbProductAmount.Text),
+                Price = productPrice
             });
             NavigationService.GetNavigationService(this).Navigate(new PgOrderList());
         }

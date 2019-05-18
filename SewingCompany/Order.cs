@@ -22,7 +22,7 @@ public partial class Order
     public Order()
     {
 
-        this.OrderList = new HashSet<OrderList>();
+        this.OrderItem = new HashSet<OrderItem>();
 
     }
 
@@ -37,6 +37,8 @@ public partial class Order
 
     public Nullable<int> IdManager { get; set; }
 
+    public Nullable<double> Price { get; set; }
+
 
 
     public virtual OrderState OrderState { get; set; }
@@ -45,7 +47,7 @@ public partial class Order
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<OrderList> OrderList { get; set; }
+    public virtual ICollection<OrderItem> OrderItem { get; set; }
 
 }
 

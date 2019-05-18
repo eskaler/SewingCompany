@@ -57,8 +57,9 @@
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="IdState" Type="int" Nullable="false" />
           <Property Name="IdManager" Type="int" />
+          <Property Name="Price" Type="float" />
         </EntityType>
-        <EntityType Name="OrderList">
+        <EntityType Name="OrderItem">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -67,6 +68,14 @@
           <Property Name="IdProduct" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IdFabric" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IdFurniture" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdBorder" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Width" Type="float" Nullable="false" />
+          <Property Name="Height" Type="float" Nullable="false" />
+          <Property Name="IdUnitWidth" Type="int" Nullable="false" />
+          <Property Name="IdUnitHeight" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="RotationAngle" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderState">
           <Key>
@@ -203,50 +212,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderItem_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="IdUnitHeight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Unit1">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="IdUnitWidth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderList_Fabric">
           <End Role="Fabric" Type="Self.Fabric" Multiplicity="1" />
-          <End Role="OrderList" Type="Self.OrderList" Multiplicity="*" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Fabric">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="OrderList">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="IdFabric" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderList_Furniture">
           <End Role="Furniture" Type="Self.Furniture" Multiplicity="1" />
-          <End Role="OrderList" Type="Self.OrderList" Multiplicity="*" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Furniture">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="OrderList">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="IdFurniture" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderList_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="OrderList" Type="Self.OrderList" Multiplicity="*" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="OrderList">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="IdOrder" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderList_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="OrderList" Type="Self.OrderList" Multiplicity="*" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="OrderList">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="IdProduct" />
             </Dependent>
           </ReferentialConstraint>
@@ -317,7 +350,7 @@
           <EntitySet Name="Furniture" EntityType="Self.Furniture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FurnitureStock" EntityType="Self.FurnitureStock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderList" EntityType="Self.OrderList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItem" EntityType="Self.OrderItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderState" EntityType="Self.OrderState" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -352,21 +385,29 @@
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Unit" Association="Self.FK_OrderItem_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Unit1" Association="Self.FK_OrderItem_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
           <AssociationSet Name="FK_OrderList_Fabric" Association="Self.FK_OrderList_Fabric">
             <End Role="Fabric" EntitySet="Fabric" />
-            <End Role="OrderList" EntitySet="OrderList" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderList_Furniture" Association="Self.FK_OrderList_Furniture">
             <End Role="Furniture" EntitySet="Furniture" />
-            <End Role="OrderList" EntitySet="OrderList" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderList_Order" Association="Self.FK_OrderList_Order">
             <End Role="Order" EntitySet="Order" />
-            <End Role="OrderList" EntitySet="OrderList" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderList_Product" Association="Self.FK_OrderList_Product">
             <End Role="Product" EntitySet="Product" />
-            <End Role="OrderList" EntitySet="OrderList" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Unit" Association="Self.FK_Product_Unit">
             <End Role="Unit" EntitySet="Unit" />
@@ -404,7 +445,7 @@
           <Property Name="Composition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ScrapRule" Relationship="Self.FK_ScrapRule_Material" FromRole="Fabric" ToRole="ScrapRule" />
           <NavigationProperty Name="FabricStock" Relationship="Self.FK_Stock_Material" FromRole="Fabric" ToRole="FabricStock" />
-          <NavigationProperty Name="OrderList" Relationship="user42Model.FK_OrderList_Fabric" FromRole="Fabric" ToRole="OrderList" />
+          <NavigationProperty Name="OrderItem" Relationship="user42Model.FK_OrderList_Fabric" FromRole="Fabric" ToRole="OrderItem" />
         </EntityType>
         <EntityType Name="FabricStock">
           <Key>
@@ -430,7 +471,7 @@
           <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PurchasePrice" Type="Double" />
           <NavigationProperty Name="FurnitureStock" Relationship="Self.FK_FurnitureStock_Furniture" FromRole="Furniture" ToRole="FurnitureStock" />
-          <NavigationProperty Name="OrderList" Relationship="user42Model.FK_OrderList_Furniture" FromRole="Furniture" ToRole="OrderList" />
+          <NavigationProperty Name="OrderItem" Relationship="user42Model.FK_OrderList_Furniture" FromRole="Furniture" ToRole="OrderItem" />
         </EntityType>
         <EntityType Name="FurnitureStock">
           <Key>
@@ -460,7 +501,7 @@
           <Property Name="IdUnitHeight" Type="Int32" />
           <NavigationProperty Name="Unit" Relationship="Self.FK_Product_Unit" FromRole="Product" ToRole="Unit" />
           <NavigationProperty Name="Unit1" Relationship="Self.FK_Product_Unit1" FromRole="Product" ToRole="Unit" />
-          <NavigationProperty Name="OrderList" Relationship="user42Model.FK_OrderList_Product" FromRole="Product" ToRole="OrderList" />
+          <NavigationProperty Name="OrderItem" Relationship="user42Model.FK_OrderList_Product" FromRole="Product" ToRole="OrderItem" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -492,6 +533,8 @@
           <NavigationProperty Name="FurnitureStock1" Relationship="Self.FK_FurnitureStock_Unit1" FromRole="Unit" ToRole="FurnitureStock" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Product_Unit" FromRole="Unit" ToRole="Product" />
           <NavigationProperty Name="Product1" Relationship="Self.FK_Product_Unit1" FromRole="Unit" ToRole="Product" />
+          <NavigationProperty Name="OrderItem" Relationship="user42Model.FK_OrderItem_Unit" FromRole="Unit" ToRole="OrderItem" />
+          <NavigationProperty Name="OrderItem1" Relationship="user42Model.FK_OrderItem_Unit1" FromRole="Unit" ToRole="OrderItem" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -684,24 +727,32 @@
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <EntitySet Name="OrderList" EntityType="user42Model.OrderList" />
+          <EntitySet Name="OrderItem" EntityType="user42Model.OrderItem" />
           <AssociationSet Name="FK_OrderList_Fabric" Association="user42Model.FK_OrderList_Fabric">
             <End Role="Fabric" EntitySet="Fabric" />
-            <End Role="OrderList" EntitySet="OrderList" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderList_Furniture" Association="user42Model.FK_OrderList_Furniture">
             <End Role="Furniture" EntitySet="Furniture" />
-            <End Role="OrderList" EntitySet="OrderList" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderList_Order" Association="user42Model.FK_OrderList_Order">
             <End Role="Order" EntitySet="Order" />
-            <End Role="OrderList" EntitySet="OrderList" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Unit" Association="user42Model.FK_OrderItem_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Unit1" Association="user42Model.FK_OrderItem_Unit1">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderList_Product" Association="user42Model.FK_OrderList_Product">
             <End Role="Product" EntitySet="Product" />
-            <End Role="OrderList" EntitySet="OrderList" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
@@ -713,7 +764,8 @@
           <Property Name="IdManager" Type="Int32" />
           <NavigationProperty Name="OrderState" Relationship="user42Model.FK_Order_OrderState" FromRole="Order" ToRole="OrderState" />
           <NavigationProperty Name="User" Relationship="user42Model.FK_Order_User" FromRole="Order" ToRole="User" />
-          <NavigationProperty Name="OrderList" Relationship="user42Model.FK_OrderList_Order" FromRole="Order" ToRole="OrderList" />
+          <Property Name="Price" Type="Double" />
+          <NavigationProperty Name="OrderItem" Relationship="user42Model.FK_OrderList_Order" FromRole="Order" ToRole="OrderItem" />
         </EntityType>
         <EntityType Name="OrderState">
           <Key>
@@ -747,7 +799,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="OrderList">
+        <EntityType Name="OrderItem">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -756,60 +808,94 @@
           <Property Name="IdProduct" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IdFabric" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IdFurniture" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Fabric" Relationship="user42Model.FK_OrderList_Fabric" FromRole="OrderList" ToRole="Fabric" />
-          <NavigationProperty Name="Furniture" Relationship="user42Model.FK_OrderList_Furniture" FromRole="OrderList" ToRole="Furniture" />
-          <NavigationProperty Name="Order" Relationship="user42Model.FK_OrderList_Order" FromRole="OrderList" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="user42Model.FK_OrderList_Product" FromRole="OrderList" ToRole="Product" />
+          <Property Name="IdBorder" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <Property Name="IdUnitWidth" Type="Int32" Nullable="false" />
+          <Property Name="IdUnitHeight" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="RotationAngle" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fabric" Relationship="user42Model.FK_OrderList_Fabric" FromRole="OrderItem" ToRole="Fabric" />
+          <NavigationProperty Name="Furniture" Relationship="user42Model.FK_OrderList_Furniture" FromRole="OrderItem" ToRole="Furniture" />
+          <NavigationProperty Name="Order" Relationship="user42Model.FK_OrderList_Order" FromRole="OrderItem" ToRole="Order" />
+          <NavigationProperty Name="Unit" Relationship="user42Model.FK_OrderItem_Unit" FromRole="OrderItem" ToRole="Unit" />
+          <NavigationProperty Name="Unit1" Relationship="user42Model.FK_OrderItem_Unit1" FromRole="OrderItem" ToRole="Unit" />
+          <NavigationProperty Name="Product" Relationship="user42Model.FK_OrderList_Product" FromRole="OrderItem" ToRole="Product" />
+          <Property Name="Width" Type="Double" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_OrderList_Fabric">
           <End Type="user42Model.Fabric" Role="Fabric" Multiplicity="1" />
-          <End Type="user42Model.OrderList" Role="OrderList" Multiplicity="*" />
+          <End Type="user42Model.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Fabric">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="OrderList">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="IdFabric" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderList_Furniture">
           <End Type="user42Model.Furniture" Role="Furniture" Multiplicity="1" />
-          <End Type="user42Model.OrderList" Role="OrderList" Multiplicity="*" />
+          <End Type="user42Model.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Furniture">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="OrderList">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="IdFurniture" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderList_Order">
           <End Type="user42Model.Order" Role="Order" Multiplicity="1" />
-          <End Type="user42Model.OrderList" Role="OrderList" Multiplicity="*" />
+          <End Type="user42Model.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="OrderList">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Unit">
+          <End Type="user42Model.Unit" Role="Unit" Multiplicity="1" />
+          <End Type="user42Model.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="IdUnitHeight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Unit1">
+          <End Type="user42Model.Unit" Role="Unit" Multiplicity="1" />
+          <End Type="user42Model.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="IdUnitWidth" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderList_Product">
           <End Type="user42Model.Product" Role="Product" Multiplicity="1" />
-          <End Type="user42Model.OrderList" Role="OrderList" Multiplicity="*" />
+          <End Type="user42Model.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="OrderList">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="IdProduct" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -914,6 +1000,7 @@
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="user42Model.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="IdManager" ColumnName="IdManager" />
                 <ScalarProperty Name="IdState" ColumnName="IdState" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -930,9 +1017,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderList">
-            <EntityTypeMapping TypeName="user42Model.OrderList">
-              <MappingFragment StoreEntitySet="OrderList">
+          <EntitySetMapping Name="OrderItem">
+            <EntityTypeMapping TypeName="user42Model.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItem">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="RotationAngle" ColumnName="RotationAngle" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IdUnitHeight" ColumnName="IdUnitHeight" />
+                <ScalarProperty Name="IdUnitWidth" ColumnName="IdUnitWidth" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="IdBorder" ColumnName="IdBorder" />
                 <ScalarProperty Name="IdFurniture" ColumnName="IdFurniture" />
                 <ScalarProperty Name="IdFabric" ColumnName="IdFabric" />
                 <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />

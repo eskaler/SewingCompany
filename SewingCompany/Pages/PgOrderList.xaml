@@ -22,14 +22,20 @@
         
         <DataGrid Grid.Row="1" Name="DgOrderList" IsReadOnly="True" AutoGenerateColumns="False" AlternationCount="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id}" Header="Артикул изделия"/>
+                <DataGridTextColumn Binding="{Binding Id}" Header="№ продукта"/>
                 <DataGridTextColumn Binding="{Binding Product.DisplayName}" Header="Изделие"/>
                 <DataGridTextColumn Binding="{Binding Fabric.DisplayName}" Header="Ткань"/>
                 <DataGridTextColumn Binding="{Binding Furniture.DisplayName}" Header="Фурнитура"/>
-
+                <DataGridTextColumn Binding="{Binding Width}" Header="Ширина"/>
+                <DataGridTextColumn Binding="{Binding Unit1.Name}" Header="ед."/>
+                <DataGridTextColumn Binding="{Binding Height}" Header="Длина"/>
+                <DataGridTextColumn Binding="{Binding Unit.Name}" Header="ед."/>
+                <DataGridTextColumn Binding="{Binding Amount}" Header="кол-во"/>
+                <DataGridTextColumn Binding="{Binding Price}" Header="Стоимость"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
+                            
                             <Button Name="BtnRemoveProduct" Content="Удалить" Click="BtnRemoveProduct_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -38,3 +44,5 @@
         </DataGrid>
     </Grid>
 </Page>
+
+    

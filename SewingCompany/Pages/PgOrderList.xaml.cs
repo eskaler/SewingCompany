@@ -24,7 +24,21 @@ namespace SewingCompany.Pages
         public PgOrderList()
         {
             InitializeComponent();
-            DgOrderList.ItemsSource = Transfer.CurrentOrder.OrderList.ToList();
+
+            //Доступный функционал в зависимости от роли пользователя
+            switch (Transfer.LoggedUser.IdRole)
+            {
+
+                case 1:
+                    
+                    break;
+                case 2:
+                    BtnAddProduct.Visibility = Visibility.Hidden;
+                    BtnCreateOrder.Visibility = Visibility.Hidden;
+                    break;
+            }
+
+            DgOrderList.ItemsSource = Transfer.CurrentOrder.OrderItem.ToList();
             LabOrderName.Content = "Заказ: " + (Transfer.CurrentOrder.Id == 0 ? "Новый" : "№ " + Transfer.CurrentOrder.Id.ToString());
         }
 
@@ -35,7 +49,9 @@ namespace SewingCompany.Pages
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
         {
-            if (Transfer.CurrentOrder.OrderList.Count() == 0 && Transfer.CurrentOrder.Id != 0)
+            //при нажатии на кнопку назад происходит удаление, если заказ пуст
+
+            if (Transfer.CurrentOrder.OrderItem.Count() == 0 && Transfer.CurrentOrder.Id != 0)
             {
                 MessageBox.Show("Заказ будет удален, т.к. в нем остуствуют изделия.");
                 var orderToDelete = Db.Conn.Order.Where(u => u.Id == Transfer.CurrentOrder.Id).First();
@@ -54,16 +70,21 @@ namespace SewingCompany.Pages
             //Дополнение данных для оформления заказа
             Transfer.CurrentOrder.Date = DateTime.Now;
             Transfer.CurrentOrder.IdState = 1;
+            Transfer.CurrentOrder.Price = Transfer.CurrentOrder.OrderItem.Sum(c => c.Price);
 
+            //внесение записей в БД
             Db.Conn.Order.Add(Transfer.CurrentOrder);
             Db.Conn.SaveChanges();
             List<Order> tempOrder = Db.Conn.Order.Where(u => u.IdUser == Transfer.LoggedUser.Id).ToList();
             var idOrder = tempOrder.Last().Id;
-            foreach (var item in Transfer.CurrentOrder.OrderList.ToList())
+            
+            foreach (var item in Transfer.CurrentOrder.OrderItem.ToList())
             {
                 item.IdOrder = idOrder;
-                Db.Conn.OrderList.Add(item);
+                Db.Conn.OrderItem.Add(item);
+                
             }
+            
 
             Db.Conn.SaveChanges();
             NavigationService.GetNavigationService(this).Navigate(new PgOrders());
@@ -71,16 +92,17 @@ namespace SewingCompany.Pages
 
         private void BtnRemoveProduct_Click(object sender, RoutedEventArgs e)
         {
+            //удаление изделия из заказа
             if (Transfer.CurrentOrder.IdState == 1)
             {
                 if (MessageBox.Show("Вы действительно хотите удалить изделие?", "Удаление изделия", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    OrderList orderItem = ((FrameworkElement)sender).DataContext as OrderList;
+                    OrderItem orderItem = ((FrameworkElement)sender).DataContext as OrderItem;
 
-                    Transfer.CurrentOrder.OrderList.Remove(orderItem);
-                    Db.Conn.OrderList.Remove(orderItem);
+                    Transfer.CurrentOrder.OrderItem.Remove(orderItem);
+                    Db.Conn.OrderItem.Remove(orderItem);
                     Db.Conn.SaveChanges();
-                    DgOrderList.ItemsSource = Transfer.CurrentOrder.OrderList.ToList();
+                    DgOrderList.ItemsSource = Transfer.CurrentOrder.OrderItem.ToList();
                 }
                 
                 

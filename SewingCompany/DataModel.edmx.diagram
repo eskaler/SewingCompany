@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9aeafad628094cebbe168f22f28942fd" Name="Diagram1" ZoomLevel="84">
+      <Diagram DiagramId="9aeafad628094cebbe168f22f28942fd" Name="Diagram1" ZoomLevel="73">
         <EntityTypeShape EntityType="user42Model.Fabric" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="user42Model.FabricStock" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="user42Model.Furniture" Width="1.5" PointX="3.75" PointY="1.375" IsExpanded="true" />
@@ -28,26 +28,14 @@
         <EntityTypeShape EntityType="user42Model.OrderState" Width="1.5" PointX="5.375" PointY="9.25" />
         <AssociationConnector Association="user42Model.FK_Order_OrderState" />
         <AssociationConnector Association="user42Model.FK_Order_User" />
-        <EntityTypeShape EntityType="user42Model.OrderList" Width="1.5" PointX="9.875" PointY="6.875" />
-        <AssociationConnector Association="user42Model.FK_OrderList_Fabric" ManuallyRouted="true" >
-          <ConnectorPoint PointX="2.25" PointY="3.7759382552083336" />
-          <ConnectorPoint PointX="3.2604166666666665" PointY="3.7759382552083331" />
-          <ConnectorPoint PointX="3.4270833333333335" PointY="3.7759382552083336" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="3.7759382552083331" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="3.7759382552083336" />
-          <ConnectorPoint PointX="7.322916666666667" PointY="3.7759382552083331" />
-          <ConnectorPoint PointX="7.489583333333333" PointY="3.7759382552083336" />
-          <ConnectorPoint PointX="8.4791666666666661" PointY="3.7759382552083331" />
-          <ConnectorPoint PointX="8.6458333333333339" PointY="3.7759382552083336" />
-          <ConnectorPoint PointX="10.286512339799719" PointY="3.7759382552083336" />
-          <ConnectorPoint PointX="10.286512339799719" PointY="5.85230962421875" />
-          <ConnectorPoint PointX="10.625" PointY="5.85230962421875" />
-          <ConnectorPoint PointX="10.625" PointY="6.875" />
-        </AssociationConnector>
+        <EntityTypeShape EntityType="user42Model.OrderItem" Width="1.5" PointX="9.875" PointY="6" />
+        <AssociationConnector Association="user42Model.FK_OrderList_Fabric" />
         <AssociationConnector Association="user42Model.FK_OrderList_Furniture" />
         <AssociationConnector Association="user42Model.FK_OrderList_Order" />
+        <AssociationConnector Association="user42Model.FK_OrderItem_Unit" />
+        <AssociationConnector Association="user42Model.FK_OrderItem_Unit1" />
         <AssociationConnector Association="user42Model.FK_OrderList_Product" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

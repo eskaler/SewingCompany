@@ -34,6 +34,10 @@ public partial class Unit
 
         this.Product1 = new HashSet<Product>();
 
+        this.OrderItem = new HashSet<OrderItem>();
+
+        this.OrderItem1 = new HashSet<OrderItem>();
+
     }
 
 
@@ -66,6 +70,14 @@ public partial class Unit
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<Product> Product1 { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<OrderItem> OrderItem { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<OrderItem> OrderItem1 { get; set; }
 
 }
 
