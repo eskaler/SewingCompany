@@ -73,15 +73,21 @@ namespace SewingCompany.Pages
             Transfer.CurrentOrder.Price = Transfer.CurrentOrder.OrderItem.Sum(c => c.Price);
 
             //внесение записей в БД
-            Db.Conn.Order.Add(Transfer.CurrentOrder);
-            Db.Conn.SaveChanges();
+            if (Db.Conn.Order.Where(o => o.Id == Transfer.CurrentOrder.Id).FirstOrDefault() == null)
+            {
+                Db.Conn.Order.Add(Transfer.CurrentOrder);
+                Db.Conn.SaveChanges();
+            }
             List<Order> tempOrder = Db.Conn.Order.Where(u => u.IdUser == Transfer.LoggedUser.Id).ToList();
             var idOrder = tempOrder.Last().Id;
             
             foreach (var item in Transfer.CurrentOrder.OrderItem.ToList())
             {
-                item.IdOrder = idOrder;
-                Db.Conn.OrderItem.Add(item);
+                if (Db.Conn.OrderItem.Where(oi => oi.Id == item.Id).FirstOrDefault() == null)
+                {
+                    item.IdOrder = idOrder;
+                    Db.Conn.OrderItem.Add(item);
+                }
                 
             }
             
@@ -108,5 +114,6 @@ namespace SewingCompany.Pages
                 
             }
         }
+
     }
 }

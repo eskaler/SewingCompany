@@ -36,7 +36,7 @@ namespace SewingCompany.Pages
         }
 
         //путь к изображениям
-        public string ImagesPath = @"D:\TTI\Демонстрационный экзамен\задание\НЧ 2017\Resources\Сессия 1\images\";
+        public string ImagesPath = @"H:\НЧ 2017\Resources\Сессия 1\images\";
 
         private void CbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -134,29 +134,44 @@ namespace SewingCompany.Pages
 
         private void BtnOrder_Click(object sender, RoutedEventArgs e)
         {
-            double productPrice = (
-                    Convert.ToDouble(Db.Conn.FabricStock.Where(u => u.IdFabric == (string)CbFabric.SelectedValue).FirstOrDefault().PurchasePrice) +
-                    Convert.ToDouble(Db.Conn.FurnitureStock.Where(u => u.IdFurniture == (string)CbFurniture.SelectedValue).FirstOrDefault().PurchasePrice) +
-                    Convert.ToDouble(Db.Conn.FabricStock.Where(u => u.IdFabric == (string)CbBorder.SelectedValue).FirstOrDefault().PurchasePrice)
-                ) * Convert.ToDouble(TbProductAmount.Text);
 
-
-            //сохранение изделия в заказ
-            Transfer.CurrentOrder.OrderItem.Add(new OrderItem
+            bool dataIsValid = true;
+            string errorMessage = string.Empty;
+            try { Convert.ToDouble(TbWidth.Text); }
+            catch { errorMessage += "Неравильно заполнено поле \"Ширина\".\n"; dataIsValid = false; }
+            try { Convert.ToDouble(TbHeight.Text); }
+            catch { errorMessage += "Неравильно заполнено поле \"Высота\".\n"; dataIsValid = false; }
+            try { Convert.ToInt32(TbProductAmount.Text); }
+            catch { errorMessage += "Неравильно заполнено поле \"Количество\".\n"; dataIsValid = false; }
+            if (dataIsValid)
             {
-                IdProduct = (string)CbProduct.SelectedValue,
-                IdFabric = (string)CbFabric.SelectedValue,
-                IdFurniture = (string)CbFurniture.SelectedValue,
-                IdBorder = (string)CbBorder.SelectedValue,
-                RotationAngle = Convert.ToInt32(FurnitureRotation.Angle),
-                Width = Convert.ToDouble(TbWidth.Text),
-                Height = Convert.ToDouble(TbHeight.Text),
-                IdUnitHeight = (int)CbHeightUnit.SelectedValue,
-                IdUnitWidth = (int)CbWidthUnit.SelectedValue,
-                Amount = Convert.ToInt32(TbProductAmount.Text),
-                Price = productPrice
-            });
-            NavigationService.GetNavigationService(this).Navigate(new PgOrderList());
+
+                double productPrice = (
+                        Convert.ToDouble(Db.Conn.FabricStock.Where(u => u.IdFabric == (string)CbFabric.SelectedValue).FirstOrDefault().PurchasePrice) +
+                        Convert.ToDouble(Db.Conn.FurnitureStock.Where(u => u.IdFurniture == (string)CbFurniture.SelectedValue).FirstOrDefault().PurchasePrice) +
+                        Convert.ToDouble(Db.Conn.FabricStock.Where(u => u.IdFabric == (string)CbBorder.SelectedValue).FirstOrDefault().PurchasePrice)
+                    ) * Convert.ToDouble(TbProductAmount.Text);
+
+
+                //сохранение изделия в заказ
+                Transfer.CurrentOrder.OrderItem.Add(new OrderItem
+                {
+                    IdProduct = (string)CbProduct.SelectedValue,
+                    IdFabric = (string)CbFabric.SelectedValue,
+                    IdFurniture = (string)CbFurniture.SelectedValue,
+                    IdBorder = (string)CbBorder.SelectedValue,
+                    RotationAngle = Convert.ToInt32(FurnitureRotation.Angle),
+                    Width = Convert.ToDouble(TbWidth.Text),
+                    Height = Convert.ToDouble(TbHeight.Text),
+                    IdUnitHeight = (int)CbHeightUnit.SelectedValue,
+                    IdUnitWidth = (int)CbWidthUnit.SelectedValue,
+                    Amount = Convert.ToInt32(TbProductAmount.Text),
+                    Price = productPrice
+                });
+                NavigationService.GetNavigationService(this).Navigate(new PgOrderList());
+            }
+            else
+                MessageBox.Show(errorMessage, "Проверьте правильность заполнения данных");
         }
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)

@@ -97,5 +97,6 @@ namespace SewingCompany.Pages
 •  Минимум один символ из набора: ! @ # $ % ^.");
             }
         }
+
     }
 }

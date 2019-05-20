@@ -48,9 +48,17 @@
                                     <ComboBoxItem Content="Обработка"/>
                                     <ComboBoxItem Content="Отклонено"/>
                                     <ComboBoxItem Content="К оплате"/>
+                                    <ComboBoxItem Content="Раскрой"/>
                                 </ComboBox.Items>
                             </ComboBox>
                             
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="DgtcStartCutting">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="BtnStartCutting" Content="Перейти к раскрою" Click="BtnStartCutting_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

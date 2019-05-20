@@ -36,7 +36,7 @@
             <Label Grid.Row="2" Grid.Column="0" Content="Пароль"/>
             <TextBox Grid.Row="1" Grid.Column="1" Name="TbLoginLogin"/>
             <PasswordBox Grid.Row="2" Grid.Column="1" Name="PbLoginPassword"/>
-            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Name="BtnLogin" Content="Войти" Click="BtnLogin_Click"/>
+            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Name="BtnLogin" Content="Войти" Click="BtnLogin_Click" IsDefault="True"/>
             <!-- Форма регистрации -->
             <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Content="Регистрация"/>
             <Label Grid.Row="1" Grid.Column="2" Content="Логин"/>

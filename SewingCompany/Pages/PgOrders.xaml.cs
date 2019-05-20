@@ -32,7 +32,7 @@ namespace SewingCompany.Pages
                 case 1: //Заказчик
                     DgtcIdUser.Visibility = Visibility.Hidden;
                     DgtcCbOrderState.Visibility = Visibility.Hidden;
-
+                    DgtcStartCutting.Visibility = Visibility.Hidden;
                     DgOrders.ItemsSource = Db.Conn.Order.Where(u => u.IdUser == Transfer.LoggedUser.Id).ToList();
                     break;
                 case 2:  //менеджер
@@ -55,22 +55,7 @@ namespace SewingCompany.Pages
             NavigationService.GetNavigationService(this).Navigate(new PgOrderList());
         }
 
-        private void BtnEdit_Click(object sender, RoutedEventArgs e)
-        {
-            //редактирование заказа
-            Order orderToEdit = ((FrameworkElement)sender).DataContext as Order;
-            if (Transfer.LoggedUser.IdRole == 2 || orderToEdit.IdState < 2 ) //редактирование возможно только для новых заказов и менеджерам
-            {
-                Transfer.CurrentOrder = orderToEdit;
-                Transfer.CurrentOrder.OrderItem = orderToEdit.OrderItem.ToList();
-                NavigationService.GetNavigationService(this).Navigate(new PgOrderList());
-            }
-            else
-            {
-                MessageBox.Show("Изменения возможны только в заказах со статусом \"Новый\"");
-            }
 
-        }
 
 
         private void CbOrderState_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -98,11 +83,32 @@ namespace SewingCompany.Pages
                         if (orderToAccept.IdState == 3)
                             orderToAccept.IdState = 5;
                         break;
+                    case 4: //раскрой
+                        if (orderToAccept.IdState == 6)
+                            orderToAccept.IdState = 7;
+                        break;
 
                 }
                 Db.Conn.SaveChanges();
                 DgOrders.ItemsSource = Db.Conn.Order.Where(u => u.IdManager == null || u.IdManager == Transfer.LoggedUser.Id).ToList();
             }
+        }
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            //редактирование заказа
+            Order orderToEdit = ((FrameworkElement)sender).DataContext as Order;
+            if (Transfer.LoggedUser.IdRole == 2 || orderToEdit.IdState < 2) //редактирование возможно только для новых заказов и менеджерам
+            {
+                Transfer.CurrentOrder = orderToEdit;
+                Transfer.CurrentOrder.OrderItem = orderToEdit.OrderItem.ToList();
+                NavigationService.GetNavigationService(this).Navigate(new PgOrderList());
+            }
+            else
+            {
+                MessageBox.Show("Изменения возможны только в заказах со статусом \"Новый\"");
+            }
+
         }
 
         private void BtnPay_Click(object sender, RoutedEventArgs e)
@@ -123,6 +129,20 @@ namespace SewingCompany.Pages
             else
             {
                 MessageBox.Show("Оплата возможна только для заказов со статусом \"К оплате\"");
+            }
+        }
+
+        private void BtnStartCutting_Click(object sender, RoutedEventArgs e)
+        {
+            Order orderToCut = ((FrameworkElement)sender).DataContext as Order;
+            if (orderToCut.IdState == 7)
+            {
+                Transfer.CurrentOrder = orderToCut;
+                NavigationService.GetNavigationService(this).Navigate(new PgCutting());
+            }
+            else
+            {
+                MessageBox.Show("Раскрой возможен только для заказов со статусом \"Раскрой\"");
             }
         }
     }

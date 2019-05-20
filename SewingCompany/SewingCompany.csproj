@@ -105,6 +105,9 @@
     <Compile Include="Pages\PgCustomer.xaml.cs">
       <DependentUpon>PgCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PgCutting.xaml.cs">
+      <DependentUpon>PgCutting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PgDirector.xaml.cs">
       <DependentUpon>PgDirector.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PgCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PgCutting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
