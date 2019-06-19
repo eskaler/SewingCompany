@@ -36,13 +36,15 @@ namespace SewingCompany.Pages
         }
 
         //путь к изображениям
-        public string ImagesPath = @"H:\НЧ 2017\Resources\Сессия 1\images\";
+        //public string ImagesPath = System.Reflection.Assembly.GetEntryAssembly() + @"\images\";
+        public string ImagesPath = @"pack://siteoforigin:,,,/Images/";
 
         private void CbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                ImProductView.Source = new BitmapImage(new Uri(ImagesPath + @"Изделия\" + CbProduct.SelectedValue + ".jpg", UriKind.Absolute));
+                //MessageBox.Show(ImagesPath + @"Изделия/");
+                ImProductView.Source = new BitmapImage(new Uri(ImagesPath + @"Изделия/" + CbProduct.SelectedValue + ".jpg", UriKind.RelativeOrAbsolute));
             }
             catch
             {
@@ -54,7 +56,7 @@ namespace SewingCompany.Pages
         {
             try
             {
-                ImFabricView.Source = new BitmapImage(new Uri(ImagesPath + @"Ткани\" + CbFabric.SelectedValue + ".jpg", UriKind.Absolute));
+                ImFabricView.Source = new BitmapImage(new Uri(ImagesPath + @"Ткани\" + CbFabric.SelectedValue + ".jpg", UriKind.RelativeOrAbsolute));
             }
             catch
             {
@@ -66,7 +68,7 @@ namespace SewingCompany.Pages
         {
             try
             {
-                ImFurnitureView.Source = new BitmapImage(new Uri(ImagesPath + @"Фурнитура\" + CbFurniture.SelectedValue + ".jpg", UriKind.Absolute));
+                ImFurnitureView.Source = new BitmapImage(new Uri(ImagesPath + @"Фурнитура\" + CbFurniture.SelectedValue + ".jpg", UriKind.RelativeOrAbsolute));
             }
             catch
             {
@@ -78,7 +80,7 @@ namespace SewingCompany.Pages
         {
             try
             {
-                ImBorderView.Source = new BitmapImage(new Uri(ImagesPath + @"Ткани\" + CbBorder.SelectedValue + ".jpg", UriKind.Absolute));
+                ImBorderView.Source = new BitmapImage(new Uri(ImagesPath + @"Ткани\" + CbBorder.SelectedValue + ".jpg", UriKind.RelativeOrAbsolute));
             }
             catch
             {
@@ -113,8 +115,8 @@ namespace SewingCompany.Pages
         {
             OpenFileDialog op = new OpenFileDialog();
             op.Title = "Выберите изображение";
-            op.Filter = "Все поддерживаемые форматы|*.jpg;*.jpeg;*.png|" +
-              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+            op.Filter = "Все поддерживаемые форматы|*.jpg;*.jpeg;*.png" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg" +
               "Portable Network Graphic (*.png)|*.png";
             if (op.ShowDialog() == true)
             {

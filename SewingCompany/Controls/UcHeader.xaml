@@ -14,7 +14,7 @@
             <ColumnDefinition Width=".2*"/>
         </Grid.ColumnDefinitions>
         <Image Source="./../Resources/Images/Logo/logo-02.jpg"/>
-        <Label Grid.Column="1" Name="LbPageName" FontSize="30pt" Content="Test" Foreground="White" VerticalContentAlignment="Center" />
+        <Label Grid.Column="1" Name="LbPageName" FontSize="30pt" Content="Test" Foreground="White" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
         <Button Grid.Column="2" Name="BtnExit" Content="Выход" Click="BtnExit_Click" Height="40"/>
     </Grid>
 </UserControl>

@@ -62,10 +62,7 @@ namespace SewingCompany.Pages
             {
                 foreach (FabricStock supplyInfo in DgSupplyFileContnet.Items)
                 {
-                    FabricStock stockInfo = Db.Conn.FabricStock.Where(u => supplyInfo.IdFabric == u.IdFabric).First();
-                    stockInfo.Width += supplyInfo.Width;
-                    stockInfo.Height += supplyInfo.Height;
-                    stockInfo.PurchasePrice = supplyInfo.PurchasePrice;
+                    Db.Conn.FabricStock.Add(supplyInfo);
                     Db.Conn.SaveChanges();
                 }
                 string acceptDate = DateTime.Now.ToString("dd-MM-yy_");

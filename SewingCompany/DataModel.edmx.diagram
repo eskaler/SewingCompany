@@ -4,38 +4,41 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9aeafad628094cebbe168f22f28942fd" Name="Diagram1" ZoomLevel="73">
-        <EntityTypeShape EntityType="user42Model.Fabric" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="user42Model.FabricStock" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="user42Model.Furniture" Width="1.5" PointX="3.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="user42Model.FurnitureStock" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="user42Model.Product" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="user42Model.Role" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="user42Model.ScrapRule" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="user42Model.Unit" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="user42Model.User" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+      <Diagram DiagramId="a0a0ad795fbe450f840862ffa6b397f3" Name="Diagram1">
+        <EntityTypeShape EntityType="user42Model.Fabric" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.FabricStock" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.Furniture" Width="1.5" PointX="3.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.FurnitureStock" Width="1.5" PointX="6" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.Order" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.OrderItem" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.OrderState" Width="1.5" PointX="0.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.Product" Width="1.5" PointX="3" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.Role" Width="1.5" PointX="1.5" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.ScrapRule" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.Unit" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.UnitConvert" Width="1.5" PointX="3" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="user42Model.User" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <AssociationConnector Association="user42Model.FK_OrderList_Fabric" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_ScrapRule_Material" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_Stock_Material" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_FabricStock_Unit" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_FabricStock_Unit1" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_FurnitureStock_Furniture" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_OrderList_Furniture" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_FurnitureStock_Unit" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_FurnitureStock_Unit1" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_Order_OrderState" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_OrderList_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_OrderItem_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_OrderItem_Unit1" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_OrderList_Product" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_Product_Unit" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_Product_Unit1" ManuallyRouted="false" />
         <AssociationConnector Association="user42Model.FK_User_Role" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="user42Model.Order" Width="1.5" PointX="7.625" PointY="8.875" />
-        <EntityTypeShape EntityType="user42Model.OrderState" Width="1.5" PointX="5.375" PointY="9.25" />
-        <AssociationConnector Association="user42Model.FK_Order_OrderState" />
-        <AssociationConnector Association="user42Model.FK_Order_User" />
-        <EntityTypeShape EntityType="user42Model.OrderItem" Width="1.5" PointX="9.875" PointY="6" />
-        <AssociationConnector Association="user42Model.FK_OrderList_Fabric" />
-        <AssociationConnector Association="user42Model.FK_OrderList_Furniture" />
-        <AssociationConnector Association="user42Model.FK_OrderList_Order" />
-        <AssociationConnector Association="user42Model.FK_OrderItem_Unit" />
-        <AssociationConnector Association="user42Model.FK_OrderItem_Unit1" />
-        <AssociationConnector Association="user42Model.FK_OrderList_Product" />
-        </Diagram>
+        <AssociationConnector Association="user42Model.FK_UnitConvert_Unit1" ManuallyRouted="false" />
+        <AssociationConnector Association="user42Model.FK_UnitConvert_Unit2" ManuallyRouted="false" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

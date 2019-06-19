@@ -141,6 +141,9 @@
     <Compile Include="Unit.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UnitConvert.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -262,6 +265,9 @@
     <Resource Include="Resources\Images\System\no-image.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Storage\SupplyFiles\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataModel.edmx</DependentUpon>
@@ -272,9 +278,11 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
       <LastGenOutput>DataModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Storage\SupplyFiles\" />
+    <Resource Include="Resources\Images\Git\0.png" />
+    <Resource Include="Resources\Images\Git\1.png" />
+    <Resource Include="Resources\Images\Git\2.png" />
+    <Resource Include="Resources\Images\Git\3.png" />
+    <Resource Include="Resources\Images\Git\4.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

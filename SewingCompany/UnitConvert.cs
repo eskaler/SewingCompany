@@ -12,18 +12,13 @@ namespace SewingCompany
     using System;
     using System.Collections.Generic;
     
-    public partial class FabricStock
+    public partial class UnitConvert
     {
         public int Id { get; set; }
-        public string IdFabric { get; set; }
-        public Nullable<double> Width { get; set; }
-        public Nullable<double> Height { get; set; }
-        public Nullable<int> IdUnitWidth { get; set; }
-        public Nullable<int> IdUnitHeight { get; set; }
-        public Nullable<double> PurchasePrice { get; set; }
-        public string DisplayName { get { return string.Format("{0} ({1})", IdFabric, Id); } }
+        public int IdUnit1 { get; set; }
+        public int IdUnit2 { get; set; }
+        public double Ratio { get; set; }
     
-        public virtual Fabric Fabric { get; set; }
         public virtual Unit Unit { get; set; }
         public virtual Unit Unit1 { get; set; }
     }

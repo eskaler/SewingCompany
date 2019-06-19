@@ -12,28 +12,89 @@
         <Grid.RowDefinitions>
             <RowDefinition Height=".1*"/>
             <RowDefinition Height=".3*"/>
-            <RowDefinition Height=".6*"/>
+            <RowDefinition Height=".3*"/>
+            
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width=".5*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Name="BtnUnknown" Content="Unknown" HorizontalAlignment="Left" />
             <Button Name="BtnGoBack" Content="Назад" HorizontalAlignment="Left" Click="BtnGoBack_Click"/>
             <Label Name="LabOrderName" Content="Заказ:"/>
         </StackPanel>
-        <DataGrid Grid.Row="1" Name="DgOrderList" IsReadOnly="True" AutoGenerateColumns="False" AlternationCount="2" SelectionChanged="DgOrderList_SelectionChanged">
+        <DataGrid Grid.Row="1" Grid.ColumnSpan="1" Name="DgOrderList" IsReadOnly="True" AutoGenerateColumns="False" AlternationCount="2" SelectionChanged="DgOrderList_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="№ продукта"/>
-                <DataGridTextColumn Binding="{Binding Product.DisplayName}" Header="Изделие"/>
-                <DataGridTextColumn Binding="{Binding Fabric.DisplayName}" Header="Ткань"/>
-                <DataGridTextColumn Binding="{Binding Furniture.DisplayName}" Header="Фурнитура"/>
+                <DataGridTextColumn Binding="{Binding Product.Id}" Header="Изделие"/>
+                <DataGridTextColumn Binding="{Binding Fabric.Id}" Header="Ткань"/>
+                <DataGridTextColumn Binding="{Binding Furniture.Id}" Header="Фурнитура"/>
                 <DataGridTextColumn Binding="{Binding Width}" Header="Ширина"/>
                 <DataGridTextColumn Binding="{Binding Unit1.Name}" Header="ед."/>
                 <DataGridTextColumn Binding="{Binding Height}" Header="Длина"/>
                 <DataGridTextColumn Binding="{Binding Unit.Name}" Header="ед."/>
                 <DataGridTextColumn Binding="{Binding Amount}" Header="кол-во"/>
                 <DataGridTextColumn Binding="{Binding Price}" Header="Стоимость"/>
-                
             </DataGrid.Columns>
         </DataGrid>
-        <Image Grid.Row="2" Name="ImCutting"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Изделие: "/>
+            <Label Grid.Row="0" Grid.Column="1" Name="LabProductId"/>
+            
+            <Label Grid.Row="1" Content="Ткань: "/>
+            <Label Grid.Row="1" Grid.Column="1" Name="LabFabricId"/>
+            
+            <Label Grid.Row="2" Content="S одного изделия: "/>
+            <Label Grid.Row="2" Grid.Column="1" Name="LabProductArea"/>
+            
+            <Label Grid.Row="3" Content="Кол-во изделий: "/>
+            <Label Grid.Row="3" Grid.Column="1" Name="LabProductAmount"/>
+            
+            <Label Grid.Row="4" Content="Требуется S ткани: "/>
+            <Label Grid.Row="4" Grid.Column="1" Name="LabFabricNeeded"/>
+
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="На складе: "/>
+            <ComboBox Grid.Row="0" Grid.Column="1" Name="CbFabricStock" DisplayMemberPath="DisplayName" SelectedValuePath="Id" SelectedIndex="0" SelectionChanged="CbFabricStock_SelectionChanged"/>
+
+            <Label Grid.Row="1" Content="Доступно: "/>
+            <Label Grid.Row="1" Grid.Column="1" Name="LabFabricStock"/>
+            
+            <Label Grid.Row="2" Content="Достаточно для: "/>
+            <Label Grid.Row="2" Grid.Column="1" Name="LabFabricEnoughFor"/>
+
+            <Button Grid.Row="3" Grid.Column="0" Name="BtnCut" Content="Раскроить" Click="BtnCut_Click"/>
+
+            <Label Grid.Row="4" Name="LabCuttingResult"  Content=""/>
+
+        </Grid>
+
+        <Image Grid.Row="2" Grid.Column="0" Name="ImCutting"/>
     </Grid>
 </Page>
